@@ -30,7 +30,7 @@ def translate(code):
         # sleep
         if code[i].startswith("bedtime"):
             try:
-                sleep((int(code[i][7:]))+random.randint(-2, 2))
+                sleep((int(data.pop(int(code[i][4:])+1)))+random.randint(-2, 2))
             except:
                 return Error("NightmaresError", "Not an appropriate bedtime.")
             
@@ -59,13 +59,6 @@ def translate(code):
             except:
                 return Error("CognitionError", "The program has forgotten what you told it to think about.")
         
-        # load ints in stack
-        elif code[i].startswith("thinkint"):
-            try:
-                stack.append(int(code[i][8:]))
-            except:
-                return Error("CognitionError", "The program has forgotten what you told it to think about.")
-        
         # data back to stack  
         elif code[i].startswith("remember"):
             try:
@@ -84,7 +77,7 @@ def translate(code):
         elif code[i].startswith("add"):
             try:
                 result = code[i][3:].split('&')
-                stack.append(str(stack.pop(int(result[0])) + stack.pop(int(result[1]))))
+                stack.append(str(data.pop(int(result[0])) + data.pop(int(result[1]))))
             except:
                 return Error("MathError", "The program has forgotten basic math. Try again in 2nd grade.")
             
@@ -92,9 +85,13 @@ def translate(code):
         elif code[i].startswith("multiply"):
             try:
                 result = code[i][8:].split('&')
-                stack.append(str(stack.pop(int(result[0])) + stack.pop(int(result[1]))))
+                stack.append(str(data.pop(int(result[0])) + data.pop(int(result[1]))))
             except:
                 return Error("MathError", "The program has forgotten basic math. Try again in 2nd grade.")
+        
+        elif code[i] == "Mk. VI Nuclear Warhead":
+            data = []
+            stack = []
         
             
         # invalid token
