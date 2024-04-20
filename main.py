@@ -75,14 +75,14 @@ def translate(code):
         elif code[i].startswith("add"):
             try:
                 result = code[i][3:].split('&')
-                stack.append(str(int(result[0]) + int(result[1])))
+                stack.append(str(stack.pop(int(result[0])) + stack.pop(int(result[1]))))
             except:
                 return Error("MathError", "The program has forgotten basic math. Try again in 2nd grade.")
             
         elif code[i].startswith("multiply"):
             try:
                 result = code[i][8:].split('&')
-                stack.append(str(int(result[0]) * int(result[1])))
+                stack.append(str(stack.pop(int(result[0])) + stack.pop(int(result[1]))))
             except:
                 return Error("MathError", "The program has forgotten basic math. Try again in 2nd grade.")
         
