@@ -15,7 +15,8 @@ class Error:
 
 
 # Split the input into tokens
-def split(text):
+def splitTokens(text):
+    text = text.replace('\n', '')
     result = text.split(';')
     result = [s for s in result if s != '']
     return result
@@ -29,7 +30,7 @@ def translate(code):
         # sleep
         if code[i].startswith("bedtime"):
             try:
-                sleep((int(code[i][7:])**2)+random.randint(-2, 2))
+                sleep((int(code[i][7:]))+random.randint(-2, 2))
             except:
                 return Error("NightmaresError", "Not an appropriate bedtime.")
             
@@ -51,10 +52,17 @@ def translate(code):
             except:
                 return Error("CognitionError", "The program has forgotten what you told it to think about.")
         
-        # load values in stack
+        # load strings in stack
         elif code[i].startswith("think"):
             try:
                 stack.append(code[i][5:])
+            except:
+                return Error("CognitionError", "The program has forgotten what you told it to think about.")
+        
+        # load ints in stack
+        elif code[i].startswith("thinkint"):
+            try:
+                stack.append(int(code[i][8:]))
             except:
                 return Error("CognitionError", "The program has forgotten what you told it to think about.")
         
@@ -72,6 +80,7 @@ def translate(code):
             except:
                 return Error("MemoryError", "The program has forgotten what you told it to remember.")
         
+        # add values in stack
         elif code[i].startswith("add"):
             try:
                 result = code[i][3:].split('&')
@@ -79,6 +88,7 @@ def translate(code):
             except:
                 return Error("MathError", "The program has forgotten basic math. Try again in 2nd grade.")
             
+        # multiply values in stack
         elif code[i].startswith("multiply"):
             try:
                 result = code[i][8:].split('&')
@@ -90,10 +100,3 @@ def translate(code):
         # invalid token
         else:
             return Error("SpellingError", "You got an F on the spelling test, womp womp.")
-                
-
-
-
-# Run the program
-code = split(input("> "))
-print(translate(code))
