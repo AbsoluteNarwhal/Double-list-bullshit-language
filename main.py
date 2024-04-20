@@ -72,6 +72,20 @@ def translate(code):
             except:
                 return Error("MemoryError", "The program has forgotten what you told it to remember.")
         
+        elif code[i].startswith("add"):
+            try:
+                result = code[i][3:].split('&')
+                stack.append(str(int(result[0]) + int(result[1])))
+            except:
+                return Error("MathError", "The program has forgotten basic math. Try again in 2nd grade.")
+            
+        elif code[i].startswith("multiply"):
+            try:
+                result = code[i][8:].split('&')
+                stack.append(str(int(result[0]) * int(result[1])))
+            except:
+                return Error("MathError", "The program has forgotten basic math. Try again in 2nd grade.")
+        
             
         # invalid token
         else:
