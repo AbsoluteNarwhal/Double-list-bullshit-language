@@ -89,11 +89,11 @@ def translate(code):
             except:
                 return Error("MathError", "The program has forgotten basic math. Try again in 2nd grade.")
         
+        # delete all data
         elif code[i] == "Mk. VI Nuclear Warhead":
             data = []
             stack = []
         
-            
         # invalid token
         else:
             return Error("SpellingError", "You got an F on the spelling test, womp womp.")
